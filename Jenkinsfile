@@ -1,24 +1,34 @@
 pipeline {
     agent any
+
     stages {
         stage('Clone Repository') {
             steps {
                 git url:'https://github.com/karthikeya964/newrepo5.git',branch:'main'
             }
         }
-        stage('Build') {
+
+        stage('Install Dependencies') {
             steps {
-                sh 'echo "Building the application..."'
+                sh 'pip install -r requirements.txt'
             }
         }
-        stage('Test') {
+
+        stage('Run Tests') {
             steps {
-                sh 'echo "Running tests..."'
+                sh 'pytest tests/'
             }
         }
-        stage('Deploy') {
+
+        stage('Build Artifact') {
             steps {
-                sh 'echo "Deploying application..."'
+                sh 'python setup.py sdist'
+            }
+        }
+
+        stage('Archive Artifact') {
+            steps {
+                archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
             }
         }
     }
