@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/karthikeya964/newrepo5.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh '''
@@ -38,7 +32,6 @@ pipeline {
             steps {
                 echo 'Building the project...'
                 sh '''
-                    # Simulate build (replace with your actual build command)
                     mkdir -p target
                     echo "Build successful" > target/output.txt
                 '''
