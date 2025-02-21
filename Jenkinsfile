@@ -9,10 +9,13 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                sh 'pip install -r requirements.txt'
-            }
-        }
+    steps {
+        sh 'python --version'
+        sh 'pip --version'
+        sh 'pip install -r requirements.txt'
+    }
+}
+
 
         stage('Run Tests') {
             steps {
@@ -21,15 +24,16 @@ pipeline {
         }
 
         stage('Build Artifact') {
-            steps {
-                sh 'python setup.py sdist'
-            }
-        }
+    steps {
+        sh 'python setup.py sdist bdist_wheel'
+    }
+}
 
-        stage('Archive Artifact') {
-            steps {
-                archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
-            }
-        }
+       stage('Archive Artifact') {
+    steps {
+        archiveArtifacts artifacts: '**/dist/*.tar.gz', fingerprint: true
+    }
+}
+
     }
 }
