@@ -10,11 +10,15 @@ pipeline {
 
         stage('Install Dependencies') {
     steps {
-        sh 'python --version'
-        sh 'pip --version'
-        sh 'pip install -r requirements.txt'
+        sh '''
+            python -m venv venv  # Create virtual environment
+            . venv/bin/activate  # Activate virtual environment
+            pip install --upgrade pip
+            pip install -r requirements.txt
+        '''
     }
 }
+
 
 
         stage('Run Tests') {
