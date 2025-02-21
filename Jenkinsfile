@@ -18,15 +18,15 @@ pipeline {
                 '''
             }
         }
+stage('Run Tests') {
+    steps {
+        sh '''
+            source venv/bin/activate
+            pytest tests/
+        '''
+    }
+}
 
-        stage('Run Tests') {
-            steps {
-                sh '''
-                    source venv/bin/activate
-                    pytest tests/
-                '''
-            }
-        }
 
         stage('Build Artifact') {
             steps {
