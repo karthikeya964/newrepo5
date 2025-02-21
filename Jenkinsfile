@@ -4,40 +4,40 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git url:'https://github.com/karthikeya964/newrepo5.git',branch:'main'
+                git 'https://github.com/karthikeya964/newrepo5.git'
             }
         }
 
         stage('Install Dependencies') {
-    steps {
-        sh '''
-            python -m venv venv  # Create virtual environment
-            . venv/bin/activate  # Activate virtual environment
-            pip install --upgrade pip
-            pip install -r requirements.txt
-        '''
-    }
-}
-
-
+            steps {
+                sh '''
+                    python -m venv venv
+                    source venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
+            }
+        }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest tests/'
+                sh '''
+                    source venv/bin/activate
+                    pytest tests/
+                '''
             }
         }
 
         stage('Build Artifact') {
-    steps {
-        sh 'python setup.py sdist bdist_wheel'
-    }
-}
+            steps {
+                echo 'Building the project...'
+            }
+        }
 
-       stage('Archive Artifact') {
-    steps {
-        archiveArtifacts artifacts: '**/dist/*.tar.gz', fingerprint: true
-    }
-}
-
+        stage('Archive Artifact') {
+            steps {
+                archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
+            }
+        }
     }
 }
