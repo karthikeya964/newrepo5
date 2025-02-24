@@ -13,8 +13,8 @@ pipeline {
                     pip install --upgrade pip
                     pip install -r requirements.txt
 
-                    # Run tests
-                    pytest tests/
+                    # Run tests with correct path
+                    pytest newrepo5/tests/
 
                     # Build Artifact
                     echo "Building the project..."
