@@ -11,7 +11,8 @@ pipeline {
                     pip install -r requirements.txt
 
                     # Run tests (commented until tests are available)
-                    # pytest tests/
+                    pytest newrepo5/python/tests/
+
 
                     # Build Artifact
                     echo "Building the project..."
