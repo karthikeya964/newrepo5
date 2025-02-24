@@ -10,9 +10,8 @@ pipeline {
                     pip install --upgrade pip
                     pip install -r requirements.txt
 
-                    # Run tests (commented until tests are available)
-                    pytest newrepo5/python/tests/
-
+                    # Run tests
+                    pytest newrepo5/tests/
 
                     # Build Artifact
                     echo "Building the project..."
