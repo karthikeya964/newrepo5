@@ -2,41 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/karthikeya964/newrepo5.git'
-            }
-        }
-
-        stage('Install Dependencies') {
+        stage('Setup and Run') {
             steps {
                 sh '''
+                    # Set up virtual environment
                     python -m venv venv
                     . venv/bin/activate
+                    
+                    # Install dependencies
                     pip install --upgrade pip
                     pip install -r requirements.txt
-                '''
-            }
-        }
 
-        stage('Run Tests') {
-            steps {
-                sh '''
-                    . venv/bin/activate
+                    # Run tests
                     pytest tests/
+
+                    # Build Artifact (Placeholder for your build commands)
+                    echo "Building the project..."
+
+                    # Archive Artifact (Placeholder for archiving)
+                    echo "Archiving artifacts..."
                 '''
-            }
-        }
-
-        stage('Build Artifact') {
-            steps {
-                echo 'Building the project...'
-            }
-        }
-
-        stage('Archive Artifact') {
-            steps {
-                echo 'Archiving artifacts...'
             }
         }
     }
